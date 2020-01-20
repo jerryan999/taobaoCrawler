@@ -1,1 +1,6 @@
 scrapy
+redis
+pymongo
+pyaml
+demjson
+fake_useragent
