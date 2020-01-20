@@ -6,6 +6,7 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from fake_useragent import UserAgent
 
 
 class Taobao1688SpiderMiddleware(object):
@@ -60,6 +61,7 @@ class Taobao1688DownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
+    ua = UserAgent()
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -78,6 +80,8 @@ class Taobao1688DownloaderMiddleware(object):
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
+        request.headers[b'User-Agent'] = self.ua.random
+
         return None
 
     def process_response(self, request, response, spider):

@@ -21,5 +21,9 @@ class Taobao1688Pipeline(object):
         self.collection_detail = db[settings['MONGODB_COLLECTION']]
 
     def process_item(self, item, spider):
+        for k in item['sku']['skuMap'].keys():
+            if "." in k:
+                item['sku']['skuMap'][k.replace('.','dot')] = item['sku']['skuMap'].pop(k)
+
         self.collection_detail.update({'url':item['url']},item,True)
         return item

@@ -55,13 +55,20 @@ CONCURRENT_REQUESTS = 16
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 1
+
 # The download delay setting will honor only one of:
 CONCURRENT_REQUESTS_PER_DOMAIN = 8
 CONCURRENT_REQUESTS_PER_IP = 8
 
 # Disable cookies (enabled by default)
-COOKIES_ENABLED = True
+COOKIES_ENABLED = False
+COOKIES_DEBUG = False
+
+
+# retry
+RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408, 429, 302]
+RETRY_PRIORITY_ADJUST = -2
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -83,8 +90,8 @@ COOKIES_ENABLED = True
 DOWNLOADER_MIDDLEWARES = {
    'taobao_1688.middlewares.Taobao1688DownloaderMiddleware': 543,
    
-   # 'taobao_1688.downloadermiddlewares.cookies.TaobaoCookiesMiddleware': 700,
-   # 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': None,
+   'taobao_1688.downloadermiddlewares.cookies.TaobaoCookiesMiddleware': 700,
+   'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': None,
 
    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware':None,
    'taobao_1688.downloadermiddlewares.proxy.ProxyMiddleWare':750
